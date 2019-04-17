@@ -1,7 +1,24 @@
 ################################################################################
 #SAMtools
 
-samtools mpileup-f ../skylark_genome/skylark.fa --VCF -t DP --skip-indels -u --bam-list bam_list.txt | bcftools call -m | bcftools filter -e 'FORMAT/DP<5' --set-GTs . | bcftools view -e 'AN<2' | bgzip > lark80.DP5AN2.vcf.gz
+samtools mpileup -f ../skylark_genome/skylark.fa --VCF -t DP --skip-indels -u --bam-list lark78.bam.list | bgzip > lark78.ST.vcf.gz
+
+bcftools call -m lark78.ST.vcf.gz | bcftools filter -e 'FORMAT/DP<5' --set-GTs . | bcftools view -e 'AN<2' | bgzip > lark78.ST.DP5AN2.vcf.gz
+
+python ~/Research/genomics_general/VCF_processing/parseVCF.py -i lark78.ST.DP5AN2.vcf.gz | bgzip > lark78.ST.DP5AN2.geno.gz
+
+
+# To count sites and SNPs, keep only sites that have 100 reads across the dataset (this is arbitrary!)
+
+bcftools filter -e 'DP < 100' -O u lark78.ST.vcf.gz | bcftools view -i 'TYPE=="snp" | TYPE=="ref"' | bgzip > lark78.ST.100reads.vcf.gz
+
+# and a SNPs only version
+bcftools filter -i 'MAC >= 1' lark78.ST.100reads.vcf.gz | bgzip > lark78.ST.100reads.VAR.vcf.gz
+
+# get number of sites and number of SNPs
+
+zcat lark78.ST.100reads.vcf.gz | grep -v "#" | wc -l
+zcat lark78.ST.100reads.VAR.vcf.gz | grep -v "#" | wc -l
 
 
 ################################################################################
@@ -49,7 +66,7 @@ done
 
 # Normal recombination scaffolds only
 
-scafs=$(cat ../NR_scaffolds_250Kb_Mar2019.txt)
+scafs=$(cat ../NR_scaffolds_250Kb_Sep2018.txt)
 
 for prefix in raso26 skyN13
 do
@@ -66,20 +83,5 @@ do
 echo $prefix
 bcftools view -e 'FORMAT/DP < 1' $prefix.HC.NRscafs.vcf.gz | bgzip > $prefix.HC.NRscafs.DP1ALL.vcf.gz
 done
-
-
-# adding a new filter here Feb 2019 as I think we've been grossly underestimating depth by keeping all sites with a springling of mis-mapped reads.
-# First merge everything, then keep only sites that have acceptable coverage (5x) in at least 5 individuals (this is arbitrary!)
-
-bcftools merge -m all -O u raso26.HC.vcf.gz skyN13.HC.vcf.gz skyWR9.HC.vcf.gz skyER10.HC.vcf.gz skyCH4.HC.vcf.gz ori11.HC.vcf.gz crest5.HC.vcf.gz |
-bcftools filter -e 'DP < 100' -O u | bcftools view -i 'TYPE=="snp" | TYPE=="ref"' | bgzip > lark78.HC.100reads.vcf.gz
-
-# and a SNPs only version
-
-bcftools filter -i 'MAC >= 1' lark78.HC.100reads.vcf.gz | bgzip > lark78.HC.100reads.VAR.vcf.gz
-
-# get number of sites and number of SNPs
-
-zcat lark78.HC.100reads.VAR.vcf.gz | grep -v "#" | wc -l
 
 

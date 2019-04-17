@@ -1,0 +1,23 @@
+#input setting
+popid: raso26 # id of the population (no white space)
+nseq: 52 # number of sequences
+L: 94612062 # total number of observed nucleic sites, including polymorphic and monomorphic
+whether_folded: true # whethr the SFS is folded (true or false)
+SFS: 	217723.357	73646.293	21356.321	16003.803	13660.400	14731.887	13833.523	11827.410	11651.853	11478.318	10282.368	9777.270	9181.990	9442.834	9611.613	9033.302	8282.198	8643.932	7053.752	7934.339	8310.744	6728.504	6856.611	6281.898	5970.373	7927.842 # snp frequency spectrum: number of singleton, number of doubleton, etc. (separated by white space)
+#smallest_size_of_SFS_bin_used_for_estimation: 2 # default is 1; to ignore singletons, change this number to 2
+#largest_size_of_SFS_bin_used_for_estimation: 15 # default is nseq/2 for folded SFS
+pct_training: 0.67 # percentage of sites for training
+nrand: 12	25	37	50 # number of random break points for each try (separated by white space)
+project_dir: raso_two-epoch_fold # project directory
+stairway_plot_dir: /home/shm45/software/stairway_plot_v2/stairway_plot_es # directory to the stairway plot files
+ninput: 200 # number of input files to be created for each estimation
+#output setting
+mu: 4.6e-9 # assumed mutation rate per site per generation
+year_per_generation: 6.5 # assumed generation time (in years)
+#plot setting
+plot_title: raso_two-epoch_fold # title of the plot
+xrange: 0.01,300 # Time (1k year) range; format: xmin,xmax; "0,0" for default
+yrange: 0,0 # Ne (1k individual) range; format: xmin,xmax; "0,0" for default
+xspacing: 2 # X axis spacing
+yspacing: 2 # Y axis spacing
+fontsize: 10 # Font size

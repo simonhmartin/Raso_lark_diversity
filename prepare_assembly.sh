@@ -24,7 +24,7 @@
 PrepareAllPathsInputs.pl\
  DATA_DIR=/PATH/TO/DATA\
  PLOIDY=2\
- IN_GROUPS_CSV=in_groups.csv\
- IN_LIBS_CSV=in_libs.csv\
+ IN_GROUPS_CSV=assembly_data/in_groups.csv\
+ IN_LIBS_CSV=assembly_data/in_libs.csv\
  | tee prepare.out
  

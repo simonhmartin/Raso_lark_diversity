@@ -15,10 +15,7 @@ sh trim_fastq.sh Skylark_R1_3kb.fastq.gz Skylark_trimmed_3kb.fastq.gz
 sh trim_fastq.sh Skylark_2nd_R1_Apollo.fastq.gz Skylark_2nd_trimmed_Apollo.fastq.gz
 sh trim_fastq.sh Skylark_2nd_R1_3kb.fastq.gz Skylark_2nd_trimmed_3kb.fastq.gz
 ```
-#### FastQC
-```sh
-for FQ in *P.fastq.gz; do (fastqc --noextract -t 1 -k 5 -q $FQ); done
-```
+
 #### run allpaths assembly
 ```sh
 PrepareAllPathsInputs.pl DATA_DIR=/PATH/TO/DATA PLOIDY=2 \
@@ -69,6 +66,41 @@ sed -e 's/tiny size 1400,1400/size 3000,3000/' \
 # Then run gnuplot to make the final plot
 gnuplot out.fixed.gp 
 
+```
+---
+## Read mapping and processing
+
+#### bowtie2
+Build genome index
+```sh
+bowtie2-build skylark.fa skylark_genome_indexing
+```
+
+Run bowtie2
+```sh
+bowtie2 -x skylark_genome_indexing \
+-U trimmed_sample_$i.fq \
+-S sample_$i.sam
+```
+
+#### bam processing
+Remove singly aligned reads
+```sh
+sed '/XS:/d' sample_$i.sam > sample_$i_1alignmentonly.sam
+```
+Convert to bam
+```sh
+samtools view -bS sample_$i_1alignmentonly.sam > sample_$i_1alignmmentonly.bam | samtools sort -o sample_$i_1alignmmentonly.sort.bam
+```
+
+Add readgroup info (uses Picardtools)
+```sh
+java -jar AddOrReplaceReadGroups.jar \
+      I=sample_$i_1alignmentonly.bam \
+      O=sample_$i_1alignmentonly_final.bam \
+      RGID=sample_$i_1alignmentonly \
+      RGLB=none RGPL=illumina RGPU=none \
+      RGSM=sample_$i_1alignmentonly
 ```
 
 
@@ -257,7 +289,7 @@ realSFS $prefix.baq1MQ1Q20GL2.saf.idx -P 30 -maxIter 100 -bootstrap 20 > $prefix
 done
 ```
 ---
-##Demographic analyses
+## Demographic analyses
 #### dadi
 
 See the Jupyter notebook `dadi_raso_final.ipynb`

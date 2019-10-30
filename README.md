@@ -1,6 +1,6 @@
 # Raso lark diversity
 
-Commands and scripts from Dierickx et al. 'Neo-sex chromosomes and demography shape genetic diversity in the Critically Endangered Raso lark'
+Commands and scripts from Dierickx et al. 'Neo-sex chromosomes, genetic diversity and demographic history in the Critically Endangered Raso lark'
 
 Note that links o raw data will be provided in the paper.
 Software installation instructions are not provided.

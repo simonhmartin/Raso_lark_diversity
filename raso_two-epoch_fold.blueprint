@@ -3,7 +3,7 @@ popid: raso26 # id of the population (no white space)
 nseq: 52 # number of sequences
 L: 94612062 # total number of observed nucleic sites, including polymorphic and monomorphic
 whether_folded: true # whethr the SFS is folded (true or false)
-SFS: 	217723.357	73646.293	21356.321	16003.803	13660.400	14731.887	13833.523	11827.410	11651.853	11478.318	10282.368	9777.270	9181.990	9442.834	9611.613	9033.302	8282.198	8643.932	7053.752	7934.339	8310.744	6728.504	6856.611	6281.898	5970.373	7927.842 # snp frequency spectrum: number of singleton, number of doubleton, etc. (separated by white space)
+SFS: 	216091.591	83055.456	21505.054	16018.985	13944.222	15794.797	14913.331	11571.183	12578.318	11835.962	11414.995	8951.835	9528.916	9059.449	11690.380	10050.291	7869.757	7997.424	9489.484	5625.233	7722.072	8111.403	7780.296	7675.978	5108.648	9011.719 # snp frequency spectrum: number of singleton, number of doubleton, etc. (separated by white space)
 #smallest_size_of_SFS_bin_used_for_estimation: 2 # default is 1; to ignore singletons, change this number to 2
 #largest_size_of_SFS_bin_used_for_estimation: 15 # default is nseq/2 for folded SFS
 pct_training: 0.67 # percentage of sites for training

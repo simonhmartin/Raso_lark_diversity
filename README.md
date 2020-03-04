@@ -226,6 +226,8 @@ R.script GBSRun.R
 ---
 ## Site Frequency Spectrum
 
+SFS for normal-recombination scaffolds only
+
 ```sh
 for prefix in raso26 skyN10 skyWR skyER oriental
 do
@@ -235,7 +237,7 @@ angsd -gl 2 -dosaf 1 -bam $prefix.bam.NRscafs.list -ref skylark.fa -anc skylark.
 realSFS $prefix.NRscafs.baq1MQ1Q20GL2.saf.idx -P 30 -maxIter 100 -bootstrap 20 > $prefix.NRscafs.baq1MQ1Q20GL2.BS20.sfs
 done
 ```
-On full genome to see how far out we would ave been with neo-sex chromosomes included
+On full genome to see how far out we would have been with neo-sex chromosomes included
 
 ```sh
 for prefix in raso26 skyN10 skyWR skyER oriental
@@ -247,7 +249,7 @@ done
 ```
 
 
-Drop-one-out tests for Raso to check consistency
+Drop-one-out tests for Raso lark to check consistency
 
 ```sh
 #make bam lists

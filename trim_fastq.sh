@@ -1,14 +1,5 @@
  #!/bin/bash
 
-#SBATCH -p general
-#SBATCH -n 16
-#SBATCH -N 1
-#SBATCH --mem 16000
-#SBATCH -t 8:00:00
-#SBATCH -J trimFastq
-#SBATCH -o trim_%j.out
-#SBATCH -e trim_%j.err
-
 #trims Illumina adaptors from paired-end sequencing using Trimmomatic
 #may need to adjust parameters for specific circumstances
 #requires Trimmomatic 0.32 or greater
